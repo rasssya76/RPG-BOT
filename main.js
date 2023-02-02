@@ -86,14 +86,14 @@ global.loadDatabase = async function loadDatabase() {
 }
 loadDatabase()
 
-global.authFile = `${opts._[0] || 'NexBotz'}.data.json`
-const { state, saveState } = store.useSingleFileAuthState(global.authFile)
+global.authFile = `${opts._[0] || 'session'}.data.json`
+const { state, saveCreds } = await useMultiFileAuthState('./sessions')
 
 const connectionOptions = {
   printQRInTerminal: true,
   auth: state,
-  // logger: pino({ level: 'trace' })
-  // logger: pino({ level: 'silent' })
+  downloadHistory: false 
+  // logger: P({ level: 'trace' })
 }
 
 global.conn = makeWASocket(connectionOptions)
@@ -165,8 +165,8 @@ global.reloadHandler = async function (restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate)
   }
 
-  conn.welcome = '✧━━━━━━[ *WELCOME* ]━━━━━━✧\n\n┏––––––━━━━━━━━•\n│⫹⫺ @subject\n┣━━━━━━━━┅┅┅\n│( 👋 Hallo @user)\n├[ *INTRO* ]—\n│ *Nama:* \n│ *Umur:* \n│ *Gender:*\n┗––––––━━┅┅┅\n\n––––––┅┅ *DESCRIPTION* ┅┅––––––\n@desc'
-  conn.bye = '✧━━━━━━[ *GOOD BYE* ]━━━━━━✧\nSayonara *@user* 👋( ╹▽╹ )'
+  conn.welcome = '*WELCOME*\n\n⫹⫺ @subject\n\n( 👋 Hallo @user)\n[ *INTRO* ]\n*Nama:* \n*Umur:* \n*Gender:*\n\n*DESCRIPTION*\n@desc'
+  conn.bye = '✧━━━━━━[ *GOOD BYE* ]━━━━━━✧\nSayonara *@user* 👋'
   conn.spromote = '@user sekarang admin!'
   conn.sdemote = '@user sekarang bukan admin!'
   conn.sDesc = 'Deskripsi telah diubah ke \n@desc'

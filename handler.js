@@ -972,9 +972,9 @@ export async function participantsUpdate({ id, participants, action }) {
                         text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
                             (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', await this.getName(user))
                         //this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
-    this.sendHydrated(id, text, wm + '\n\n' + botdate, pp, sgc, (action == 'add' ? '💌 WELCOME' : '🐾 BYE'), user.split`@`[0], '🌹 USER', [
-      ['MENU 🎀', '/menu'],
-      ['\n\nSAYA PEDO DAN SAYA BANGGA (≧▽≦)', '...'],
+    this.sendHydrated(id, text, wm + '\n\n' + botdate, pp, sgc, (action == 'add' ? 'WELCOME' : ' BYE'), user.split`@`[0], 'USER', [
+      ['MENU', '/menu'],
+      ['\n\nSaya yteam dan saya suka', '...'],
       [null, null]
     ], null, false, { mentions: [user] })
                     }
